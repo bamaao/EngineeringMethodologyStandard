@@ -268,9 +268,32 @@ For example:
 
 However, parallel execution MUST NOT violate artifact dependencies or approved architectural boundaries.
 
+## 3.3 Alignment with Methodology Baselines
+
+Engineering baselines G1 through G7 are defined by the Product-to-Engineering Development Methodology & Documentation Standard. This standard does not redefine those baselines.
+
+Gate P0 through Gate P9 are execution checkpoints. A checkpoint identifier uses the phase number. It is not a baseline identifier. Several checkpoints can be required to close one baseline.
+
+| Execution checkpoint | Methodology baseline it serves |
+|---|---|
+| Gate P0 Project Readiness | None. Execution preparation only |
+| Gate P1 Product Baseline Approval | G1 Product Baseline |
+| Gate P2 System Requirements Approval | G2 System Architecture Baseline |
+| Gate P3 System Architecture Approval | G2 System Architecture Baseline |
+| Gate P4 Infrastructure Approval | G3 Deployment Baseline |
+| Gate P5 Subsystem Architecture Approval | G2 System Architecture Baseline and G4 Subsystem Baseline |
+| Gate P6 Subsystem SRS Approval | G4 Subsystem Baseline |
+| Gate P7 Software Design Approval | G5 Design Baseline |
+| Gate P8 Implementation Readiness | G6 Implementation Baseline |
+| Gate P9 Release Approval | G7 Release Baseline |
+
+Document review checklists are in Engineering Document Templates & Standards, §26.2. A checkpoint that reviews documents uses those checklists. The document outcome maps to the checkpoint result as defined in §11.2.
+
 ---
 
 # 4. Phase Definitions and Quality Gates
+
+Each phase ends at the execution checkpoint named below. The checkpoint applies the document reviews and baseline rules in §3.3.
 
 ## 4.1 P0 — Project Initiation
 
@@ -308,7 +331,9 @@ Establish project governance, initial scope, engineering standards, and executio
 - Agent Registry
 - Initial Risk Register
 
-### Gate G0 — Project Readiness
+### Gate P0 — Project Readiness
+
+Gate P0 prepares execution. It does not establish a methodology baseline.
 
 The phase MUST NOT complete until:
 
@@ -358,17 +383,11 @@ Transform product ideas and business objectives into structured product requirem
 - Product Acceptance Criteria
 - Product Requirements Baseline
 
-### Gate G1 — Product Baseline Approval
+### Gate P1 — Product Baseline Approval
 
-- [ ] Product objectives are explicit.
-- [ ] Product scope is defined.
-- [ ] Target users are identified.
-- [ ] Business processes are documented.
-- [ ] Functional requirements are identifiable.
-- [ ] NFRs are sufficiently measurable.
-- [ ] Acceptance criteria are established.
-- [ ] Business requirements are reviewed.
-- [ ] Product Owner approves the baseline.
+Gate P1 closes methodology baseline G1.
+
+The Product Documents review in Engineering Document Templates & Standards, §26.2, MUST pass. The Product Owner MUST approve the baseline.
 
 ---
 
@@ -408,17 +427,11 @@ Translate product requirements into complete system-level requirements.
 - System Requirement Traceability Matrix
 - System Requirements Baseline
 
-### Gate G2 — System Requirements Approval
+### Gate P2 — System Requirements Approval
 
-- [ ] All in-scope product requirements are addressed.
-- [ ] System boundaries are defined.
-- [ ] External actors and systems are identified.
-- [ ] System functional requirements are defined.
-- [ ] System interfaces are identified.
-- [ ] System NFRs are measurable where applicable.
-- [ ] Requirements are traceable to the PRD.
-- [ ] Unresolved requirements are documented.
-- [ ] System requirements are approved.
+Gate P2 serves methodology baseline G2. It does not close that baseline. Baseline G2 also requires Gate P3 and Gate P5.
+
+The System Requirements review in Engineering Document Templates & Standards, §26.2, MUST pass. The System Engineering Lead MUST approve the system requirements.
 
 ---
 
@@ -465,18 +478,11 @@ Design the overall system architecture based on approved system requirements.
 - Architecture Decision Records
 - Initial System Component Inventory
 
-### Gate G3 — System Architecture Approval
+### Gate P3 — System Architecture Approval
 
-- [ ] Architecture drivers are identified.
-- [ ] Architecture style is justified.
-- [ ] System context is defined.
-- [ ] Logical architecture is complete.
-- [ ] Application architecture is defined.
-- [ ] Data ownership principles are established.
-- [ ] Integration architecture is documented.
-- [ ] Security boundaries are defined.
-- [ ] Major risks are documented.
-- [ ] Architecture decisions are reviewed.
+Gate P3 serves methodology baseline G2. It does not close that baseline. Baseline G2 also requires Gate P2 and Gate P5.
+
+The System Architecture review in Engineering Document Templates & Standards, §26.2, MUST pass. The Chief Architect or System Architect MUST approve the system architecture.
 
 ---
 
@@ -519,17 +525,11 @@ Transform the logical architecture into a network and deployment structure.
 - Environment Specification
 - Infrastructure Cost and Capacity Estimates, where required
 
-### Gate G4 — Infrastructure Approval
+### Gate P4 — Infrastructure Approval
 
-- [ ] Deployment units are identified.
-- [ ] Logical-to-physical mapping is defined.
-- [ ] Network zones are documented.
-- [ ] Communication paths are documented.
-- [ ] Network security controls are defined.
-- [ ] Runtime environments are identified.
-- [ ] Availability and scaling requirements are addressed.
-- [ ] Environment separation is established.
-- [ ] Deployment architecture is consistent with system architecture.
+Gate P4 closes methodology baseline G3.
+
+The Deployment Architecture review in Engineering Document Templates & Standards, §26.2, MUST pass. The Infrastructure Lead MUST approve the network and deployment architecture.
 
 ---
 
@@ -575,17 +575,11 @@ Decompose the complete system into independently manageable subsystems and defin
 - Interface Inventory
 - Initial ICDs
 
-### Gate G5 — Subsystem Architecture Approval
+### Gate P5 — Subsystem Architecture Approval
 
-- [ ] All major system capabilities are allocated.
-- [ ] Subsystem boundaries are explicit.
-- [ ] Subsystem responsibilities do not have unresolved ownership conflicts.
-- [ ] Data ownership is defined.
-- [ ] Dependencies are documented.
-- [ ] Cross-subsystem interactions are defined.
-- [ ] Interface ownership is established.
-- [ ] Every applicable system requirement has an allocation.
-- [ ] Subsystem architectures are reviewed.
+Gate P5 serves methodology baselines G2 and G4. Together with Gate P2 and Gate P3, it closes G2. It does not by itself close G4. Baseline G4 also requires Gate P6.
+
+The Subsystem Architecture review in Engineering Document Templates & Standards, §26.2, MUST pass. The System Architect MUST approve the subsystem architecture.
 
 ---
 
@@ -630,18 +624,11 @@ For each subsystem:
 - Acceptance Criteria
 - Subsystem RTM
 
-### Gate G6 — Subsystem SRS Approval
+### Gate P6 — Subsystem SRS Approval
 
-- [ ] All allocated system requirements are addressed.
-- [ ] Functional requirements are identifiable.
-- [ ] Inputs and outputs are defined where applicable.
-- [ ] Business rules are referenced.
-- [ ] Exception handling is specified.
-- [ ] NFRs are measurable where applicable.
-- [ ] Interfaces are documented.
-- [ ] Acceptance criteria are testable.
-- [ ] Requirements are traceable.
-- [ ] SRS is approved.
+Gate P6 serves methodology baseline G4. Together with Gate P5, it closes G4.
+
+The Subsystem SRS review in Engineering Document Templates & Standards, §26.2, MUST pass. The Requirements Lead or Subsystem Owner MUST approve the SRS.
 
 ---
 
@@ -689,18 +676,11 @@ Convert approved software requirements into implementation-ready technical desig
 - Test Specification
 - Updated RTM
 
-### Gate G7 — Software Design Approval
+### Gate P7 — Software Design Approval
 
-- [ ] All relevant SRS requirements have design coverage.
-- [ ] Component responsibilities are defined.
-- [ ] Dependencies are documented.
-- [ ] Algorithms are sufficiently specified.
-- [ ] Database structures are defined.
-- [ ] Interfaces are complete.
-- [ ] Security mechanisms are documented.
-- [ ] Error handling is specified.
-- [ ] Design is consistent with subsystem architecture.
-- [ ] Design is implementation-ready.
+Gate P7 closes methodology baseline G5.
+
+The SDS review in Engineering Document Templates & Standards, §26.2, MUST pass. A separate API specification, ICD, database design, security specification, or test specification MUST pass the applicable §26.2 checklist. The Software Architect or Technical Lead MUST approve the design. Interface owners MUST approve API and ICD documents. The Security Lead MUST approve a separate security specification.
 
 ---
 
@@ -748,18 +728,11 @@ Implement the approved designs and integrate independently developed subsystems.
 - Updated API and ICD Specifications
 - Implementation Traceability
 
-### Gate G8 — Implementation Readiness
+### Gate P8 — Implementation Readiness
 
-- [ ] Required components are implemented.
-- [ ] Code follows approved design.
-- [ ] Code passes static analysis.
-- [ ] Unit tests pass.
-- [ ] Interface contracts are implemented.
-- [ ] Database migrations are validated.
-- [ ] Integration tests pass for the relevant scope.
-- [ ] Security checks are performed.
-- [ ] Code review is completed.
-- [ ] Implementation references are updated.
+Gate P8 closes methodology baseline G6.
+
+The implementation MUST satisfy §8.4 of the methodology standard, including an approved code review. The code review MUST be performed by a reviewer independent of the implementing Agent, as required in §5.4 of this standard.
 
 ---
 
@@ -806,18 +779,11 @@ Verify the complete system and deliver a controlled release.
 - Deployment Runbook
 - Release Baseline
 
-### Gate G9 — Release Approval
+### Gate P9 — Release Approval
 
-- [ ] Required tests have been executed.
-- [ ] Critical requirements have passed verification.
-- [ ] No unresolved release-blocking defects remain.
-- [ ] Security acceptance criteria are satisfied.
-- [ ] Performance requirements are verified where applicable.
-- [ ] RTM is updated.
-- [ ] Deployment procedures are validated.
-- [ ] Rollback procedures are available.
-- [ ] Product Owner approves acceptance.
-- [ ] Release baseline is established.
+Gate P9 closes methodology baseline G7.
+
+The release MUST satisfy §9.4 of the methodology standard. Test documentation MUST pass the Verification review in Engineering Document Templates & Standards, §26.2. The QA Lead MUST accept the test results. The Release Authority or Product Owner MUST approve the release.
 
 ---
 
@@ -1589,7 +1555,7 @@ A quality gate evaluates:
 
 ## 11.2 Gate Evaluation
 
-Each quality gate MUST return one of the following results:
+Each execution checkpoint MUST return one of the following results:
 
 | Result | Meaning |
 |---|---|
@@ -1597,6 +1563,17 @@ Each quality gate MUST return one of the following results:
 | PASS_WITH_ACTIONS | Approved with non-blocking actions |
 | FAIL | Mandatory criteria not satisfied |
 | BLOCKED | Required inputs or approvals unavailable |
+
+When the checkpoint includes a document review, the document outcome in Engineering Document Templates & Standards, §26.3, determines the checkpoint result.
+
+| Document review outcome | Checkpoint result |
+|---|---|
+| Approved | PASS |
+| Approved with Actions | PASS_WITH_ACTIONS |
+| Rework Required | FAIL |
+| Rejected | FAIL |
+
+BLOCKED is used only when the checkpoint cannot be evaluated. It is not a document-review outcome. A methodology baseline is established only when every checkpoint required for that baseline has returned PASS or PASS_WITH_ACTIONS.
 
 ## 11.3 Gate Execution Workflow
 
@@ -1611,7 +1588,7 @@ flowchart TD
 
     A --> B --> C --> D --> E --> F
 
-    F -->|PASS| G["Establish Baseline"]
+    F -->|PASS| G["Record checkpoint pass"]
     F -->|PASS_WITH_ACTIONS| H["Record Actions"]
     F -->|FAIL| I["Create Rework Tasks"]
     F -->|BLOCKED| J["Resolve Blockers"]
@@ -2118,52 +2095,62 @@ workflow:
   phases:
     - id: P0
       name: Project Initiation
-      gate: G0
+      gate: P0
+      methodology_baseline: none
 
     - id: P1
       name: Product Requirements
       depends_on: [P0]
-      gate: G1
+      gate: P1
+      methodology_baseline: G1
 
     - id: P2
       name: System Requirements
       depends_on: [P1]
-      gate: G2
+      gate: P2
+      methodology_baseline: G2
 
     - id: P3
       name: System Architecture
       depends_on: [P2]
-      gate: G3
+      gate: P3
+      methodology_baseline: G2
 
     - id: P4
       name: Infrastructure Architecture
       depends_on: [P3]
-      gate: G4
+      gate: P4
+      methodology_baseline: G3
 
     - id: P5
       name: Subsystem Engineering
       depends_on: [P3, P4]
-      gate: G5
+      gate: P5
+      methodology_baseline: [G2, G4]
 
     - id: P6
       name: Software Requirements
       depends_on: [P5]
-      gate: G6
+      gate: P6
+      methodology_baseline: G4
 
     - id: P7
       name: Software Design
       depends_on: [P6]
-      gate: G7
+      gate: P7
+      methodology_baseline: G5
 
     - id: P8
       name: Implementation and Integration
       depends_on: [P7]
-      gate: G8
+      gate: P8
+      methodology_baseline: G6
 
     - id: P9
       name: Verification and Delivery
       depends_on: [P8]
-      gate: G9
+      gate: P9
+      methodology_baseline: G7
 ```
 
 This is an illustrative workflow configuration. Actual projects MAY define more granular phases and parallel dependencies.
@@ -2720,6 +2707,7 @@ Defines:
 
 - Engineering lifecycle.
 - Development phases.
+- Engineering baselines G1 through G7.
 - Engineering responsibilities.
 - Development principles.
 - Stage transitions.
@@ -2737,7 +2725,7 @@ Defines:
 - Requirement formats.
 - Diagram standards.
 - Naming conventions.
-- Review criteria.
+- Document review checklists and review outcomes in §26.
 
 Fundamental question:
 
@@ -2752,6 +2740,7 @@ Defines:
 - Task dependencies.
 - Artifact coordination.
 - Workflow execution.
+- Execution checkpoints Gate P0 through Gate P9.
 - Validation and approvals.
 - Multi-Agent collaboration.
 

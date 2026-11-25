@@ -2219,19 +2219,36 @@ Every formal document MUST be evaluated against the following criteria.
 
 ## 26.2 Review Checklist
 
+These checklists are the only document-review criteria in the engineering framework. The methodology standard defines which reviews a baseline requires. The workflow standard executes those reviews. Neither standard maintains a second copy of these lists.
+
 ### Product Documents
 
 - [ ] Product objectives are explicit.
 - [ ] Target users are identified.
+- [ ] Stakeholders and user roles are identified.
 - [ ] Product scope is defined.
 - [ ] Business scenarios are documented.
+- [ ] Business rules and constraints are defined.
 - [ ] Functional requirements are identifiable.
 - [ ] NFRs are measurable where applicable.
 - [ ] Acceptance criteria are defined.
+- [ ] External dependencies and integrations are identified.
+
+### System Requirements
+
+- [ ] In-scope product requirements are addressed.
+- [ ] System boundary is defined.
+- [ ] External actors and systems are identified.
+- [ ] System functional requirements are defined.
+- [ ] System interfaces are identified.
+- [ ] System NFRs are measurable where applicable.
+- [ ] Requirements are traceable to the PRD.
+- [ ] Unresolved requirements are documented.
 
 ### System Architecture
 
 - [ ] System boundary is defined.
+- [ ] Requirements coverage is demonstrated.
 - [ ] Architecture drivers are documented.
 - [ ] Architectural style is justified.
 - [ ] Logical architecture is complete.
@@ -2240,6 +2257,10 @@ Every formal document MUST be evaluated against the following criteria.
 - [ ] Dependencies are documented.
 - [ ] Interfaces are identified.
 - [ ] Security boundaries are defined.
+- [ ] Scalability is addressed.
+- [ ] Reliability is addressed.
+- [ ] Deployment feasibility is addressed.
+- [ ] Operational complexity is addressed.
 - [ ] Architecture decisions are recorded.
 
 ### Deployment Architecture
@@ -2248,16 +2269,35 @@ Every formal document MUST be evaluated against the following criteria.
 - [ ] Logical-to-physical mapping is complete.
 - [ ] Network topology is documented.
 - [ ] Communication paths are identified.
+- [ ] Infrastructure dependencies are identified.
 - [ ] Environment separation is defined.
 - [ ] Security controls are specified.
 - [ ] Reliability and recovery are addressed.
+- [ ] Deployment constraints are established.
+- [ ] The deployment architecture is consistent with the approved system architecture.
+
+### Subsystem Architecture
+
+- [ ] Major system capabilities are allocated.
+- [ ] Subsystem boundaries are explicit.
+- [ ] Responsibilities have no unresolved ownership conflicts.
+- [ ] Internal architecture is documented.
+- [ ] Data ownership is defined.
+- [ ] Dependencies are documented.
+- [ ] Cross-subsystem interactions are defined.
+- [ ] Interface ownership is established.
+- [ ] Applicable system requirements are allocated.
+- [ ] Security requirements are addressed.
+- [ ] A test strategy is defined.
 
 ### Subsystem SRS
 
 - [ ] All allocated system requirements are addressed.
 - [ ] Requirements are uniquely identified.
 - [ ] Requirements are unambiguous.
+- [ ] Requirements are traceable to allocated system requirements.
 - [ ] Inputs and outputs are defined where applicable.
+- [ ] Business rules are referenced.
 - [ ] Failure conditions are addressed.
 - [ ] Acceptance criteria are testable.
 - [ ] Interface requirements are documented.
@@ -2269,10 +2309,14 @@ Every formal document MUST be evaluated against the following criteria.
 - [ ] Components are defined.
 - [ ] Dependencies are documented.
 - [ ] Data structures are specified.
+- [ ] Data design respects defined data ownership.
 - [ ] Algorithms are sufficiently defined.
 - [ ] State transitions are defined where applicable.
+- [ ] Interfaces are compatible with approved interface contracts.
 - [ ] Error handling is documented.
 - [ ] Security mechanisms are specified.
+- [ ] The design is testable.
+- [ ] Operational feasibility is addressed.
 - [ ] Implementation decisions are consistent with the architecture.
 
 ### Verification
@@ -2296,6 +2340,17 @@ A document review MUST produce one of the following outcomes:
 | Rejected | Fundamentally unsuitable or incorrect |
 
 All blocking review comments MUST be resolved before approval.
+
+An execution checkpoint in Engineering Workflow & AI Agent Orchestration Standard uses the document outcome as follows.
+
+| Document review outcome | Execution checkpoint result |
+|---|---|
+| Approved | PASS |
+| Approved with Actions | PASS_WITH_ACTIONS |
+| Rework Required | FAIL |
+| Rejected | FAIL |
+
+BLOCKED is not a document-review outcome. The workflow standard uses it when a checkpoint cannot be evaluated because required inputs or approvals are unavailable.
 
 ---
 

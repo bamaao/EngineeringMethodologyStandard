@@ -164,4 +164,4 @@ Section 15 is the project sequence: understand the product, analyze and decompos
 
 Section 16 is the adoption baseline, `METH-001` through `METH-012`. Document granularity may be tailored. The engineering controls remain.
 
-When AI agents take part, they use the same gates, artifacts, and traceability rules, and they work inside the approved requirements, business rules, and project architecture. That execution model is the workflow standard.
+When AI agents take part, they work inside the approved requirements, business rules, and project architecture. Methodology baselines remain G1 through G7. The workflow standard executes them as Gate P0 through Gate P9. Document review checklists are in the templates standard, §26.

@@ -161,6 +161,28 @@ Each phase MUST have an explicit completion gate.
 
 A project MAY tailor the gates according to its scale and risk profile, but MUST preserve the underlying approval and traceability principles.
 
+## 2.4 Baselines, Document Reviews, and Execution Checkpoints
+
+G1 through G7 are engineering baselines. A baseline states what must be true before downstream work relies on it.
+
+Document review checklists and document review outcomes are defined in Engineering Document Templates & Standards, §26. This standard does not keep a second checklist for the same documents.
+
+Checkpoint execution, approval authority, and the results PASS, PASS_WITH_ACTIONS, FAIL, and BLOCKED are defined in Engineering Workflow & AI Agent Orchestration Standard. Those checkpoints are Gate P0 through Gate P9. The P identifiers name phase checkpoints. They do not rename baselines G1 through G7.
+
+| Baseline | Required document reviews (§26.2) | Closed when these checkpoints have passed |
+|---|---|---|
+| G1 Product Baseline | Product Documents | Gate P1 |
+| G2 System Architecture Baseline | System Requirements; System Architecture; Subsystem Architecture | Gate P2, Gate P3, and Gate P5 |
+| G3 Deployment Baseline | Deployment Architecture | Gate P4 |
+| G4 Subsystem Baseline | Subsystem Architecture; Subsystem SRS | Gate P5 and Gate P6 |
+| G5 Design Baseline | SDS. A separate API, ICD, database, security, or test specification uses the applicable §26.2 checklist | Gate P7 |
+| G6 Implementation Baseline | None. Completion is §8.4 | Gate P8 |
+| G7 Release Baseline | Verification, for the test documentation | Gate P9 |
+
+Gate P0, Project Readiness, prepares execution. It does not establish an engineering baseline.
+
+A baseline is approved only when every required document review is Approved or Approved with Actions, and every checkpoint in the table has passed. Phase exit criteria in this standard remain the engineering conditions for that baseline.
+
 ---
 
 # 3. Phase 1 — Product Requirements Engineering
@@ -276,6 +298,8 @@ The product requirements baseline MUST:
 6. Define business rules and constraints.
 7. Provide measurable acceptance criteria.
 8. Identify external dependencies and integrations.
+
+The product documents MUST pass the Product Documents review in Engineering Document Templates & Standards, §26.2. Passing that review and Gate P1 closes baseline G1.
 
 ---
 
@@ -496,6 +520,8 @@ The system architecture baseline MUST establish:
 9. Preliminary interface contracts.
 10. Documented architectural decisions.
 
+The system requirements and system architecture documents MUST pass the System Requirements and System Architecture reviews in Engineering Document Templates & Standards, §26.2. Subsystem allocation MUST pass the Subsystem Architecture review. Baseline G2 closes when those reviews have passed and Gate P2, Gate P3, and Gate P5 have passed.
+
 ---
 
 # 5. Phase 3 — Network and Deployment Architecture
@@ -613,6 +639,8 @@ The deployment baseline MUST:
 6. Define security controls.
 7. Address availability and recovery.
 8. Establish deployment constraints.
+
+The deployment documents MUST pass the Deployment Architecture review in Engineering Document Templates & Standards, §26.2. Passing that review and Gate P4 closes baseline G3.
 
 ---
 
@@ -787,6 +815,8 @@ A subsystem is considered design-complete when:
 8. Its test strategy is defined.
 9. Its dependencies are documented.
 
+The subsystem architecture and the subsystem SRS MUST pass the Subsystem Architecture and Subsystem SRS reviews in Engineering Document Templates & Standards, §26.2. Baseline G4 closes when those reviews have passed and Gate P5 and Gate P6 have passed.
+
 ---
 
 # 7. Phase 5 — Software Design Engineering
@@ -910,16 +940,11 @@ Interface changes MUST be managed through controlled revisions.
 
 ## 7.4 Design Review
 
-Before implementation begins, the design MUST be reviewed against:
+Before implementation begins, the design MUST be reviewed.
 
-- SRS completeness
-- Architecture consistency
-- Interface compatibility
-- Data ownership
-- Security requirements
-- Failure handling
-- Testability
-- Operational feasibility
+The review uses the SDS checklist in Engineering Document Templates & Standards, §26.2. When the API specification, ICD, database design, security specification, or test specification is a separate document, that document MUST pass the applicable §26.2 checklist.
+
+Passing these reviews and Gate P7 closes baseline G5.
 
 ---
 
@@ -974,13 +999,18 @@ flowchart TD
 A software task is complete only when:
 
 1. Implementation satisfies its assigned requirements.
-2. Unit tests pass.
-3. Code review is approved.
-4. Static analysis passes according to project policy.
-5. Security requirements are addressed.
-6. API and documentation changes are synchronized.
-7. Relevant integration tests pass.
-8. No unresolved critical defects remain.
+2. Implementation follows the approved design.
+3. Unit tests pass.
+4. Code review is approved.
+5. Static analysis passes according to project policy.
+6. Security requirements are addressed.
+7. API and documentation changes are synchronized.
+8. Database migrations required by the implementation are validated.
+9. Relevant integration tests pass.
+10. Traceability references to requirements and design are updated.
+11. No unresolved critical defects remain.
+
+Satisfying this definition and passing Gate P8 closes baseline G6.
 
 ## 8.5 Configuration and Version Management
 
@@ -1063,13 +1093,20 @@ Every testable requirement MUST be associated with at least one verification met
 A release MUST satisfy:
 
 1. Required system tests pass.
-2. Critical security issues are resolved.
-3. Acceptance criteria are met.
-4. Deployment procedures are validated.
-5. Database migrations are reviewed.
-6. Monitoring and alerting are operational.
-7. Rollback or recovery procedures are established.
-8. Release documentation is complete.
+2. Critical requirements have passed verification.
+3. Critical security issues are resolved.
+4. Applicable performance requirements are verified.
+5. Acceptance criteria are met.
+6. No unresolved release-blocking defects remain.
+7. The requirements traceability matrix is updated.
+8. Deployment procedures are validated.
+9. Database migrations are reviewed.
+10. Monitoring and alerting are operational.
+11. Rollback or recovery procedures are established.
+12. Release documentation is complete.
+13. A release baseline is established.
+
+Test documentation MUST pass the Verification review in Engineering Document Templates & Standards, §26.2. Satisfying these criteria and passing Gate P9 closes baseline G7. The approval authority for the release is defined in the workflow standard.
 
 ---
 
@@ -1242,37 +1279,15 @@ Replace them with measurable or explicitly testable criteria.
 
 ## 12.1 Architecture Review
 
-The system architecture MUST undergo a formal review before its baseline is approved.
+The system architecture MUST undergo a formal review before baseline G2 is approved.
 
-The review SHOULD cover:
-
-- Requirements coverage
-- Subsystem decomposition
-- Architecture consistency
-- Dependency management
-- Data ownership
-- Interface design
-- Security boundaries
-- Scalability
-- Reliability
-- Deployment feasibility
-- Operational complexity
+The review uses the System Architecture checklist in Engineering Document Templates & Standards, §26.2. Subsystem allocation is reviewed with the Subsystem Architecture checklist and is required for the same baseline.
 
 ## 12.2 Subsystem Design Review
 
-Each subsystem MUST undergo a design review.
+Each subsystem MUST undergo a design review before baseline G4 is approved.
 
-Review items:
-
-1. Responsibility and scope
-2. SRS completeness
-3. Internal component design
-4. API and ICD consistency
-5. Data model correctness
-6. Security controls
-7. Error handling
-8. Testability
-9. Dependency constraints
+The review uses the Subsystem Architecture checklist and the Subsystem SRS checklist in Engineering Document Templates & Standards, §26.2. Component, interface, data, and security design is reviewed against the SDS checklist when baseline G5 is approved.
 
 ## 12.3 Architecture Decision Records
 
